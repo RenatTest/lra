@@ -11,6 +11,7 @@ class HomePageScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Home page'), centerTitle: true),
       body: Center(
         child: Column(
+          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

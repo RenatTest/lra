@@ -11,10 +11,15 @@ class RegisterPageScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Register page'), centerTitle: true),
       body: Center(
         child: Column(
+          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Register page'),
+            ElevatedButton(
+              onPressed: () => context.goNamed(PageNames.homePage),
+              child: Text('Register'),
+            ),
             GestureDetector(
               onTap: () => context.goNamed(PageNames.loginPage),
               child: Text(

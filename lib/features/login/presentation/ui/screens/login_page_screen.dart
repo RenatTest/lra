@@ -11,12 +11,14 @@ class LoginPageScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Login page'), centerTitle: true),
       body: Center(
         child: Column(
+          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () => context.goNamed(PageNames.homePage),
-              child: Text('Login page'),
+            Text('Login page'),
+            ElevatedButton(
+              onPressed: () => context.goNamed(PageNames.homePage),
+              child: Text('Login'),
             ),
             GestureDetector(
               onTap: () => context.goNamed(PageNames.registerPage),
