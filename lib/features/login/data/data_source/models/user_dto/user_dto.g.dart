@@ -1,0 +1,81 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user_dto.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
+  id: (json['id'] as num?)?.toInt(),
+  access: json['access'] as String?,
+  refresh: json['refresh'] as String?,
+  userId: json['userId'],
+  firstName: json['firstName'],
+  lastName: json['lastName'],
+  fullName: json['fullName'],
+  username: json['username'],
+  email: json['email'],
+  clearEmail: json['clearEmail'],
+  phone: json['phone'],
+  country: json['country'],
+  city: json['city'],
+  birthDate: json['birthDate'],
+  gender: json['gender'],
+  profileImageUrl: json['profileImageUrl'],
+  joinDate: json['joinDate'],
+  lastLoginDate: json['lastLoginDate'],
+  lastLoginDateDisplay: json['lastLoginDateDisplay'],
+  role: json['role'] as String?,
+  password: json['password'],
+  newPassword: json['newPassword'],
+  status: json['status'],
+  isQuestionnaireFilled: json['isQuestionnaireFilled'],
+  registrationType: json['registrationType'] as String?,
+  authorities: (json['authorities'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  userIsActive: json['userIsActive'] as bool?,
+  userIsNotLocked: json['userIsNotLocked'] as bool?,
+  notifications: json['notifications'],
+  timer: json['timer'],
+  accounts: json['accounts'],
+  active: json['active'],
+  playMusic: json['playMusic'],
+);
+
+Map<String, dynamic> _$UserDtoToJson(UserDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'access': instance.access,
+  'refresh': instance.refresh,
+  'userId': instance.userId,
+  'firstName': instance.firstName,
+  'lastName': instance.lastName,
+  'fullName': instance.fullName,
+  'username': instance.username,
+  'email': instance.email,
+  'clearEmail': instance.clearEmail,
+  'phone': instance.phone,
+  'country': instance.country,
+  'city': instance.city,
+  'birthDate': instance.birthDate,
+  'gender': instance.gender,
+  'profileImageUrl': instance.profileImageUrl,
+  'joinDate': instance.joinDate,
+  'lastLoginDate': instance.lastLoginDate,
+  'lastLoginDateDisplay': instance.lastLoginDateDisplay,
+  'role': instance.role,
+  'password': instance.password,
+  'newPassword': instance.newPassword,
+  'status': instance.status,
+  'isQuestionnaireFilled': instance.isQuestionnaireFilled,
+  'registrationType': instance.registrationType,
+  'authorities': instance.authorities,
+  'userIsActive': instance.userIsActive,
+  'userIsNotLocked': instance.userIsNotLocked,
+  'notifications': instance.notifications,
+  'timer': instance.timer,
+  'accounts': instance.accounts,
+  'active': instance.active,
+  'playMusic': instance.playMusic,
+};
