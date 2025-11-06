@@ -62,6 +62,7 @@ class _UserApiRetrofit implements UserApiRetrofit {
   Future<UserDto> register({
     String? email,
     String? password,
+    String? username,
     String? registrationType,
   }) async {
     final _extra = <String, dynamic>{};
@@ -71,6 +72,7 @@ class _UserApiRetrofit implements UserApiRetrofit {
     final _data = {
       'email': email,
       'password': password,
+      'username': username,
       'registrationType': registrationType,
     };
     _data.removeWhere((k, v) => v == null);

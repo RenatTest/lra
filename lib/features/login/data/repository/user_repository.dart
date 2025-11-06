@@ -11,6 +11,7 @@ abstract interface class UserRepository {
   Future<UserEntity> register({
     required String email,
     required String password,
+    required String username,
     required String registrationType,
   });
 }
@@ -41,11 +42,13 @@ class UserRepositoryImpl implements UserRepository {
   Future<UserEntity> register({
     required String email,
     required String password,
+    required String username,
     required String registrationType,
   }) async {
     final response = await dataSource.register(
       email: email,
       password: password,
+      username: username,
       registrationType: registrationType,
     );
 
