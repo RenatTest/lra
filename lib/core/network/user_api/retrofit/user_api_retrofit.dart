@@ -12,16 +12,16 @@ abstract class UserApiRetrofit implements UserApiBase {
   @override
   @POST('/api/user/login')
   Future<UserDto> logIn({
-    required String email,
-    required String password,
-    required String registrationType,
+    @Field('email') String? email,
+    @Field('password') String? password,
+    @Field('registrationType') String? registrationType,
   });
 
   @override
   @POST('/api/user/register')
   Future<UserDto> register({
-    required String email,
-    required String password,
-    required String registrationType,
+    @Field('email') String? email,
+    @Field('password') String? password,
+    @Field('registrationType') String? registrationType,
   });
 }

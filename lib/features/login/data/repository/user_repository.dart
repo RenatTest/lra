@@ -1,22 +1,3 @@
-// abstract interface class CryptoListRepository {
-//   Future<CryptoListEntity> getCryptoList();
-// }
-
-// class CryptoListRepositoryImpl implements CryptoListRepository {
-//   CryptoListRepositoryImpl(this.dataSource);
-
-//   final CryptoListDataSource dataSource;
-
-//   @override
-//   Future<CryptoListEntity> getCryptoList() async {
-//     final response = await dataSource.getCryptoList();
-
-//     final cryptoListResult = CryptoListEntity.fromDTO(response);
-
-//     return cryptoListResult;
-//   }
-// }
-
 import 'package:lra/features/login/data/data_source/user_data_source.dart';
 import 'package:lra/features/login/data/repository/entities/user_entity.dart';
 
@@ -35,7 +16,7 @@ abstract interface class UserRepository {
 }
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl(this.dataSource);
+  UserRepositoryImpl({required this.dataSource});
 
   final UserDataSource dataSource;
 

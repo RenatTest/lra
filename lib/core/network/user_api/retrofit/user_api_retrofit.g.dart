@@ -23,14 +23,20 @@ class _UserApiRetrofit implements UserApiRetrofit {
 
   @override
   Future<UserDto> logIn({
-    required String email,
-    required String password,
-    required String registrationType,
+    String? email,
+    String? password,
+    String? registrationType,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {
+      'email': email,
+      'password': password,
+      'registrationType': registrationType,
+    };
+    _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<UserDto>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -54,14 +60,20 @@ class _UserApiRetrofit implements UserApiRetrofit {
 
   @override
   Future<UserDto> register({
-    required String email,
-    required String password,
-    required String registrationType,
+    String? email,
+    String? password,
+    String? registrationType,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = {
+      'email': email,
+      'password': password,
+      'registrationType': registrationType,
+    };
+    _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<UserDto>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
