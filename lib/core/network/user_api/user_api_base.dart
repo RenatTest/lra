@@ -9,6 +9,7 @@ abstract interface class UserApiBase {
   Future<UserDto> register({
     required String email,
     required String password,
+    required String username,
     required String registrationType,
   });
 }

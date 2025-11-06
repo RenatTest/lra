@@ -11,6 +11,7 @@ abstract interface class UserDataSource {
   Future<UserDto> register({
     required String email,
     required String password,
+    required String username,
     required String registrationType,
   });
 }
@@ -39,11 +40,13 @@ class UserDataSourceImpl implements UserDataSource {
   Future<UserDto> register({
     required String email,
     required String password,
+    required String username,
     required String registrationType,
   }) async {
     final result = await _api.register(
       email: email,
       password: password,
+      username: username,
       registrationType: registrationType,
     );
 

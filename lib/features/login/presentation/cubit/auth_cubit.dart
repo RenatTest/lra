@@ -29,6 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> register(
     String email,
     String password,
+    String username,
     String registrationType,
   ) async {
     emit(state.copyWith(loading: true));
@@ -36,6 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
       final user = await authRepository.register(
         email: email,
         password: password,
+        username: username,
         registrationType: registrationType,
       );
 
@@ -45,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     emit(AuthState());
   }
 }

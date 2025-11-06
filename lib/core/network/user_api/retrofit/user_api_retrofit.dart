@@ -22,6 +22,7 @@ abstract class UserApiRetrofit implements UserApiBase {
   Future<UserDto> register({
     @Field('email') String? email,
     @Field('password') String? password,
+    @Field('username') String? username,
     @Field('registrationType') String? registrationType,
   });
 }
