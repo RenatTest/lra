@@ -2,12 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lra/core/network/user_api/retrofit/user_api_retrofit.dart';
+import 'package:lra/core/storage/prefs_storage/prefs_storage.dart';
+import 'package:lra/core/storage/secure_storage/secure_storage.dart';
 import 'package:lra/features/login/data/data_source/user_data_source.dart';
 import 'package:lra/features/login/data/repository/user_repository.dart';
 import 'package:lra/features/login/presentation/cubit/auth_cubit.dart';
 import 'package:lra/router/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefsStorage.instance.init();
   runApp(const MyApp());
 }
 
@@ -21,6 +25,8 @@ class MyApp extends StatelessWidget {
         authRepository: UserRepositoryImpl(
           dataSource: UserDataSourceImpl(UserApiRetrofit(Dio())),
         ),
+        secureStorage: SecureStorage.instance,
+        prefs: PrefsStorage.instance,
       ),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

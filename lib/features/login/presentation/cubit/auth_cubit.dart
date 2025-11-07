@@ -1,11 +1,32 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lra/core/storage/prefs_storage/prefs_storage.dart';
+import 'package:lra/core/storage/secure_storage/secure_storage.dart';
+import 'package:lra/features/login/data/repository/entities/user_entity.dart';
 import 'package:lra/features/login/data/repository/user_repository.dart';
 import 'package:lra/features/login/presentation/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final UserRepository authRepository;
+  AuthCubit({
+    required this.authRepository,
+    required this.secureStorage,
+    required this.prefs,
+  }) : super(AuthState()) {
+    _init();
+  }
 
-  AuthCubit({required this.authRepository}) : super(AuthState());
+  final UserRepository authRepository;
+  final SecureStorage secureStorage;
+  final PrefsStorage prefs;
+
+  Future<void> _init() async {
+    final token = await secureStorage.getToken();
+    final userId = await prefs.getUserId();
+
+    if (token != '' && userId != 0) {
+      final user = UserEntity(userId, token);
+      emit(state.copyWith(user: user));
+    }
+  }
 
   Future<void> logIn(
     String email,
@@ -19,6 +40,9 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         registrationType: registrationType,
       );
+
+      await secureStorage.saveToken(user.token);
+      await prefs.saveUserId(user.id);
 
       emit(state.copyWith(loading: false, user: user));
     } catch (e) {
@@ -41,6 +65,9 @@ class AuthCubit extends Cubit<AuthState> {
         registrationType: registrationType,
       );
 
+      await secureStorage.saveToken(user.token);
+      await prefs.saveUserId(user.id);
+
       emit(state.copyWith(loading: false, user: user));
     } catch (e) {
       emit(state.copyWith(loading: false, error: e.toString()));
@@ -48,6 +75,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logOut() async {
+    await secureStorage.deleteToken();
+    await prefs.deleteUserId();
     emit(AuthState());
   }
 }
