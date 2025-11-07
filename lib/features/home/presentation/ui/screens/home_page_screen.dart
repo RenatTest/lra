@@ -11,7 +11,11 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home page'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Home page'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           return Center(

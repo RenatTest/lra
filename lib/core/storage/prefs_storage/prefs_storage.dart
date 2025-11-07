@@ -15,15 +15,15 @@ class PrefsStorage {
     );
   }
 
-  Future<void> saveUserId(String userId) async {
-    await _prefs.setString(PrefsKeys.userId, userId);
+  Future<void> saveUserId(int? userId) async {
+    await _prefs.setInt(PrefsKeys.userId, userId ?? 0);
   }
 
-  Future<String?> getUserId() async {
-    return _prefs.getString(PrefsKeys.userId) ?? '';
+  Future<int?> getUserId() async {
+    return _prefs.getInt(PrefsKeys.userId) ?? 0;
   }
 
   Future<void> deleteUserId() async {
-    return await _prefs.setString(PrefsKeys.userId, '');
+    return await _prefs.setInt(PrefsKeys.userId, 0);
   }
 }
