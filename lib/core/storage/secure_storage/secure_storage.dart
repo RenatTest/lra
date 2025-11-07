@@ -11,7 +11,7 @@ class SecureStorage {
 
   final _secureStorage = FlutterSecureStorage(aOptions: _getAndroidOptions());
 
-  Future<void> saveToken(String token) async {
+  Future<void> saveToken(String? token) async {
     await _secureStorage.write(key: SecureStorageKeys.token, value: token);
   }
 

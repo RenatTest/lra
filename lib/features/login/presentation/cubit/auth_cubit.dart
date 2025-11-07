@@ -1,11 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lra/core/storage/secure_storage/secure_storage.dart';
 import 'package:lra/features/login/data/repository/user_repository.dart';
 import 'package:lra/features/login/presentation/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final UserRepository authRepository;
+  AuthCubit({required this.authRepository, required this.secureStorage})
+    : super(AuthState());
 
-  AuthCubit({required this.authRepository}) : super(AuthState());
+  final UserRepository authRepository;
+  final SecureStorage secureStorage;
 
   Future<void> logIn(
     String email,
@@ -19,6 +22,8 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
         registrationType: registrationType,
       );
+
+      await secureStorage.saveToken(user.token);
 
       emit(state.copyWith(loading: false, user: user));
     } catch (e) {
@@ -41,6 +46,8 @@ class AuthCubit extends Cubit<AuthState> {
         registrationType: registrationType,
       );
 
+      await secureStorage.saveToken(user.token);
+
       emit(state.copyWith(loading: false, user: user));
     } catch (e) {
       emit(state.copyWith(loading: false, error: e.toString()));
@@ -48,6 +55,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logOut() async {
+    await secureStorage.deleteToken();
     emit(AuthState());
   }
 }
