@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lra/core/storage/prefs_storage/prefs_storage.dart';
 import 'package:lra/core/storage/secure_storage/secure_storage.dart';
@@ -45,8 +46,22 @@ class AuthCubit extends Cubit<AuthState> {
       await prefs.saveUserId(user.id);
 
       emit(state.copyWith(loading: false, user: user));
-    } catch (e) {
-      emit(state.copyWith(loading: false, error: e.toString()));
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        emit(
+          state.copyWith(
+            loading: false,
+            error: 'Login / Password entered incorrectly. Please try again',
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            loading: false,
+            error: 'Server error. Please try again later',
+          ),
+        );
+      }
     }
   }
 
@@ -69,8 +84,17 @@ class AuthCubit extends Cubit<AuthState> {
       await prefs.saveUserId(user.id);
 
       emit(state.copyWith(loading: false, user: user));
-    } catch (e) {
-      emit(state.copyWith(loading: false, error: e.toString()));
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        emit(state.copyWith(loading: false, error: 'Email already exists'));
+      } else {
+        emit(
+          state.copyWith(
+            loading: false,
+            error: 'Server error. Please try again later',
+          ),
+        );
+      }
     }
   }
 
