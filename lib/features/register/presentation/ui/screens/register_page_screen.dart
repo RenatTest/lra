@@ -32,18 +32,6 @@ class _RegisterPageScreenState extends State<RegisterPageScreen> {
           if (state.user?.token != null) {
             context.goNamed(PageNames.homePage);
           }
-          if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Center(
-                  child: Text(
-                    state.error!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ),
-              ),
-            );
-          }
         },
         builder: (context, state) {
           return GestureDetector(
