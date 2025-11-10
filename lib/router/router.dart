@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lra/features/app/page_names.dart';
 import 'package:lra/features/home/presentation/ui/screens/home_page_screen.dart';
+import 'package:lra/features/login/presentation/cubit/auth_cubit.dart';
 import 'package:lra/features/login/presentation/ui/screens/login_page_screen.dart';
 import 'package:lra/features/register/presentation/ui/screens/register_page_screen.dart';
 
 final router = GoRouter(
+  redirect: _checkAuthRedirect,
   routes: [
     GoRoute(
       path: '/',
@@ -25,3 +29,16 @@ final router = GoRouter(
     ),
   ],
 );
+
+String? _checkAuthRedirect(BuildContext context, GoRouterState state) {
+  final currentUser = context.read<AuthCubit>().state.user;
+  final currentPath = state.matchedLocation;
+
+  final isLoginFlow = ['/', '/register-page'].contains(currentPath);
+
+  if (isLoginFlow) return currentUser != null ? '/home-page' : null;
+
+  if (currentUser == null) return '/';
+
+  return null;
+}
