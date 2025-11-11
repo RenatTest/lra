@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lra/core/storage/prefs_storage/prefs_storage.dart';
 import 'package:lra/core/storage/secure_storage/secure_storage.dart';
+import 'package:lra/core/token/check_token.dart';
 import 'package:lra/features/login/data/repository/entities/user_entity.dart';
 import 'package:lra/features/login/data/repository/user_repository.dart';
 import 'package:lra/features/login/presentation/cubit/auth_state.dart';
@@ -11,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.authRepository,
     required this.secureStorage,
     required this.prefs,
+    required this.checkToken,
   }) : super(AuthState()) {
     _init();
   }
@@ -18,6 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
   final UserRepository authRepository;
   final SecureStorage secureStorage;
   final PrefsStorage prefs;
+  final CheckToken checkToken;
 
   Future<void> _init() async {
     final token = await secureStorage.getToken();
@@ -25,6 +28,9 @@ class AuthCubit extends Cubit<AuthState> {
 
     if (token != '' && userId != 0) {
       final user = UserEntity(userId, token);
+      checkToken.getExpirationDate(token);
+      bool isTokenExpired = checkToken.isExpired(token);
+      if (isTokenExpired) logOut();
       emit(state.copyWith(user: user));
     }
   }
@@ -42,6 +48,8 @@ class AuthCubit extends Cubit<AuthState> {
         registrationType: registrationType,
       );
 
+      checkToken.getExpirationDate(user.token);
+      checkToken.isExpired(user.token);
       await secureStorage.saveToken(user.token);
       await prefs.saveUserId(user.id);
 
@@ -80,6 +88,8 @@ class AuthCubit extends Cubit<AuthState> {
         registrationType: registrationType,
       );
 
+      checkToken.getExpirationDate(user.token);
+      checkToken.isExpired(user.token);
       await secureStorage.saveToken(user.token);
       await prefs.saveUserId(user.id);
 

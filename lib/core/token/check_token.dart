@@ -7,13 +7,17 @@ class CheckToken {
 
   static final CheckToken instance = CheckToken._();
 
-  getExpirationDate(String token) {
-    DateTime expirationDate = JwtDecoder.getExpirationDate(token);
+  DateTime getExpirationDate(String? token) {
+    DateTime expirationDate = token == null
+        ? DateTime.now()
+        : JwtDecoder.getExpirationDate(token);
     print(expirationDate);
+    return expirationDate;
   }
 
-  isExpired(String token) {
-    bool isTokenExpired = JwtDecoder.isExpired(token);
+  bool isExpired(String? token) {
+    bool isTokenExpired = token == null ? true : JwtDecoder.isExpired(token);
     print(isTokenExpired);
+    return isTokenExpired;
   }
 }
